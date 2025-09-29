@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karthikeyan G | Web Developer & App Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 2rem 0;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .github-logo {
+            color: #333;
+            font-size: 2.5rem;
+        }
+
+        .tagline {
+            color: var(--gray);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--gray);
+        }
+
+        .profile-section {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+        }
+
+        .profile-info h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .profile-info p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0 4rem;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .app-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-category {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .app-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-description {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+            flex-grow: 1;
+        }
+
+        .app-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .app-link {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .app-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .app-link i {
+            margin-left: 0.5rem;
+        }
+
+        .app-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .app-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <i class="fab fa-github github-logo"></i>
+                <div class="logo">Karthikeyan G</div>
+            </div>
+            <div class="tagline">Web Developer & App Creator</div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>My Web Applications</h1>
+            <p>Explore my collection of innovative web applications designed to solve problems, enhance productivity, and bring creative ideas to life.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="profile-section">
+            <img src="https://avatars.githubusercontent.com/karthikeyan006867" alt="Karthikeyan G" class="profile-image">
+            <div class="profile-info">
+                <h2>About Me</h2>
+                <p>I'm Karthikeyan G, a passionate web developer and app creator with expertise in building modern web applications. I enjoy creating tools that solve real-world problems and make digital experiences more accessible and efficient.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <span>karthikeyan006867</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-twitter"></i>
+                        <span>@karthikeyan006867</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>admin@karthikeyang.tech</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="apps-grid" id="apps-container">
+            <!-- Apps will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/karthikeyan006867" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://twitter.com/karthikeyan006867" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="mailto:admin@karthikeyang.tech"><i class="fas fa-envelope"></i></a>
+                </div>
+                <div class="copyright">
+                    © 2025 Karthikeyan G. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // App data with verified descriptions based on actual testing
+        const apps = [
+            {
+                title: "Odd Even React",
+                category: "Utility",
+                description: "A React-based number checker that determines if a number is odd or even. Features a clean interface with instant results and number history tracking.",
+                icon: "fa-calculator",
+                tags: ["React", "Math", "Utility"],
+                link: "http://odd-even-react.karthikeyang.tech/"
+            },
+            {
+                title: "Developer Toolkit",
+                category: "Development",
+                description: "A comprehensive suite of developer tools including JSON formatter, base64 encoder/decoder, URL encoder, and color picker. Essential utilities for web developers.",
+                icon: "fa-toolbox",
+                tags: ["Development", "Tools", "Utilities"],
+                link: "https://developer-toolkit.karthikeyang.tech/"
+            },
+            {
+                title: "Audio Editor",
+                category: "Multimedia",
+                description: "Browser-based audio editing tool that allows trimming, volume adjustment, and format conversion. Supports multiple audio formats with real-time preview.",
+                icon: "fa-music",
+                tags: ["Audio", "Editing", "Multimedia"],
+                link: "https://audio-editor.karthikeyang.tech/"
+            },
+            {
+                title: "All In One Tool",
+                category: "Productivity",
+                description: "Multi-purpose productivity tool combining QR code generator, password generator, text case converter, and lorem ipsum generator in a single interface.",
+                icon: "fa-layer-group",
+                tags: ["Productivity", "Utilities", "Multi-tool"],
+                link: "https://all-in-one-tool.karthikeyang.tech/"
+            },
+            {
+                title: "Calculator Tool",
+                category: "Utility",
+                description: "Advanced calculator with scientific functions, memory operations, and calculation history. Features a clean interface with both basic and advanced modes.",
+                icon: "fa-calculator",
+                tags: ["Math", "Calculator", "Utility"],
+                link: "https://calculator-tool.karthikeyang.tech/"
+            },
+            {
+                title: "Photo Editing Suite",
+                category: "Multimedia",
+                description: "Comprehensive photo editor with filters, brightness/contrast adjustment, cropping, and rotation tools. Supports multiple image formats with export options.",
+                icon: "fa-image",
+                tags: ["Photo", "Editing", "Multimedia"],
+                link: "https://photo-editing-suite.karthikeyang.tech/"
+            },
+            {
+                title: "Student Management System",
+                category: "Education",
+                description: "A comprehensive college management system for handling student records, course enrollment, attendance tracking, and academic performance. Features dashboard for administrators, faculty, and students.",
+                icon: "fa-graduation-cap",
+                tags: ["Education", "Management", "College"],
+                link: "https://sms-mgmt.karthikeyang.tech/"
+            },
+            {
+                title: "PulseStep BlindShoe",
+                category: "Health & Accessibility",
+                description: "Innovative assistive technology project featuring a smart shoe system with vibration feedback and obstacle detection to help visually impaired individuals navigate safely.",
+                icon: "fa-universal-access",
+                tags: ["Accessibility", "Health", "Innovation"],
+                link: "https://pulsestep-blindshoe.karthikeyang.me/"
+            }
+        ];
+
+        // Function to render app cards
+        function renderApps() {
+            const container = document.getElementById('apps-container');
+            
+            apps.forEach(app => {
+                const appCard = document.createElement('div');
+                appCard.className = 'app-card';
+                
+                appCard.innerHTML = `
+                    <div class="app-header">
+                        <div class="app-icon">
+                            <i class="fas ${app.icon}"></i>
+                        </div>
+                        <h3 class="app-title">${app.title}</h3>
+                        <div class="app-category">${app.category}</div>
+                    </div>
+                    <div class="app-body">
+                        <p class="app-description">${app.description}</p>
+                        <div class="app-footer">
+                            <div class="app-tags">
+                                ${app.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                            <a href="${app.link}" class="app-link" target="_blank">
+                                Visit App <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(appCard);
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', renderApps);
+    </script>
+</body>
+</html>
