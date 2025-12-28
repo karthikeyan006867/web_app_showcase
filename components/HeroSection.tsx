@@ -122,16 +122,16 @@ export default function HeroSection() {
               My
             </motion.span>
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200 inline-block">
+            <span className="inline-block">
               <motion.span
-                className="inline-block"
+                className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
               >
                 Digital
               </motion.span>{" "}
               <motion.span
-                className="inline-block"
+                className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
               >
