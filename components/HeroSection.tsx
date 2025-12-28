@@ -1,89 +1,267 @@
 "use client";
 
-import { ArrowRight, Zap, Star, TrendingUp } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Zap, Star, TrendingUp, Sparkles, Rocket } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
 
 export default function HeroSection() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 dark:from-blue-900 dark:via-purple-900 dark:to-pink-900">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full mix-blend-overlay filter blur-3xl animate-pulse" />
-        <div className="absolute top-40 right-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-overlay filter blur-3xl animate-pulse delay-75" />
-        <div className="absolute -bottom-20 left-1/2 w-96 h-96 bg-pink-300 rounded-full mix-blend-overlay filter blur-3xl animate-pulse delay-150" />
+    <section ref={ref} className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 dark:from-blue-900 dark:via-purple-900 dark:to-pink-900">
+      {/* Animated orbs */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full mix-blend-overlay filter blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-40 right-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-overlay filter blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -50, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+        <motion.div
+          className="absolute -bottom-20 left-1/2 w-96 h-96 bg-pink-300 rounded-full mix-blend-overlay filter blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            x: [0, 30, 0],
+            y: [0, -40, 0],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
       </div>
 
-      <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
+      {/* Floating particles */}
+      <div className="absolute inset-0 overflow-hidden opacity-30">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-white"
+            style={{
+              width: Math.random() * 4 + 1,
+              height: Math.random() * 4 + 1,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -50, 0],
+              x: [0, Math.random() * 20 - 10, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+
+      <motion.div style={{ y, opacity }} className="container mx-auto px-4 py-20 md:py-32 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full mb-8">
-            <Zap className="w-4 h-4 text-yellow-300" />
+          {/* Badge with animation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-full mb-8 border border-white/30"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            >
+              <Zap className="w-4 h-4 text-yellow-300" />
+            </motion.div>
             <span className="text-white font-medium text-sm">
               23 Innovative Web Applications
             </span>
-          </div>
+            <motion.div
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Sparkles className="w-4 h-4 text-yellow-300" />
+            </motion.div>
+          </motion.div>
 
-          {/* Main heading */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-            Explore My
+          {/* Main heading with stagger animation */}
+          <motion.h1
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <motion.span
+              className="inline-block"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+            >
+              Explore
+            </motion.span>{" "}
+            <motion.span
+              className="inline-block"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, delay: 0.1 }}
+            >
+              My
+            </motion.span>
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200">
-              Digital Creations
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-pink-200 to-purple-200 inline-block">
+              <motion.span
+                className="inline-block"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
+              >
+                Digital
+              </motion.span>{" "}
+              <motion.span
+                className="inline-block"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+              >
+                Creations
+              </motion.span>
             </span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+          <motion.p
+            className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             A curated showcase of web applications spanning design tools, games, productivity apps, and innovative solutions
-          </p>
+          </motion.p>
 
-          {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-8 mb-12">
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2">
-                <Star className="w-6 h-6 text-yellow-300" />
-                <p className="text-3xl font-bold text-white">23</p>
-              </div>
-              <p className="text-white/80">Web Apps</p>
-            </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2">
-                <TrendingUp className="w-6 h-6 text-green-300" />
-                <p className="text-3xl font-bold text-white">9</p>
-              </div>
-              <p className="text-white/80">Categories</p>
-            </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2">
-                <Zap className="w-6 h-6 text-blue-300" />
-                <p className="text-3xl font-bold text-white">100%</p>
-              </div>
-              <p className="text-white/80">Free Access</p>
-            </div>
-          </div>
+          {/* Animated stats */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-8 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            {[
+              { icon: Star, value: "23", label: "Web Apps", color: "text-yellow-300" },
+              { icon: TrendingUp, value: "9", label: "Categories", color: "text-green-300" },
+              { icon: Rocket, value: "100%", label: "Free Access", color: "text-blue-300" },
+            ].map((stat, i) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div
+                  key={stat.label}
+                  className="text-center group cursor-pointer"
+                  whileHover={{ scale: 1.1, y: -5 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
+                >
+                  <motion.div
+                    className="flex items-center justify-center space-x-2 mb-1"
+                    whileHover={{ rotate: [0, -10, 10, 0] }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Icon className={`w-6 h-6 ${stat.color}`} />
+                    <motion.p
+                      className="text-3xl font-bold text-white"
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                    >
+                      {stat.value}
+                    </motion.p>
+                  </motion.div>
+                  <p className="text-white/80">{stat.label}</p>
+                </motion.div>
+              );
+            })}
+          </motion.div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <motion.a
               href="#apps"
-              className="px-8 py-4 bg-white hover:bg-gray-100 text-blue-600 rounded-lg font-semibold transition-all shadow-xl hover:shadow-2xl flex items-center space-x-2 group"
+              className="px-8 py-4 bg-white hover:bg-gray-100 text-blue-600 rounded-lg font-semibold transition-all shadow-xl flex items-center space-x-2 group relative overflow-hidden"
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
+              whileTap={{ scale: 0.95 }}
             >
-              <span>Explore Apps</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <Link
-              href="https://karthikeyang.me"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-white/10 backdrop-blur-lg hover:bg-white/20 text-white border-2 border-white/30 rounded-lg font-semibold transition-all"
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-20"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              <span className="relative z-10">Explore Apps</span>
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <ArrowRight className="w-5 h-5 relative z-10" />
+              </motion.div>
+            </motion.a>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              View Portfolio
-            </Link>
-          </div>
+              <Link
+                href="https://karthikeyang.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-white/10 backdrop-blur-lg hover:bg-white/20 text-white border-2 border-white/30 rounded-lg font-semibold transition-all inline-block"
+              >
+                View Portfolio
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            className="mt-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+          >
+            <motion.div
+              className="mx-auto w-6 h-10 border-2 border-white/50 rounded-full flex justify-center"
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <motion.div
+                className="w-1.5 h-1.5 bg-white rounded-full mt-2"
+                animate={{ y: [0, 16, 0], opacity: [1, 0, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Wave separator */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <motion.div
+        className="absolute bottom-0 left-0 right-0"
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
         <svg
           viewBox="0 0 1440 120"
           fill="none"
@@ -95,7 +273,7 @@ export default function HeroSection() {
             className="fill-gray-50 dark:fill-gray-900"
           />
         </svg>
-      </div>
+      </motion.div>
     </section>
   );
 }
